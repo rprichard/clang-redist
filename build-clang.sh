@@ -49,6 +49,6 @@ $SCRIPT_SRC/update-rpath-entries.py \
 
 # Run Clang tests in the build directory.
 cd $BUILD/clang-${VERSION_CLANG}/test
-make check-all > ../clang-${VERSION_CLANG}-test-log 2>&1
+make check-all > ../../clang-${VERSION_CLANG}-test-log 2>&1
 
 date
