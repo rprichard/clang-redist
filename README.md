@@ -25,6 +25,11 @@ libstdc++ newer than the one on the host system.  Either use `LD_LIBRARY_PATH`
 to point at the packaged libstdc++, or compile with `-Wl,-R<path>` to embed an
 RPATH into the binary.
 
+Prerequisites
+-------------
+
+    sudo apt-get install make g++ chrpath
+
 Build process
 -------------
 
@@ -53,6 +58,17 @@ directory have no version string associating them with this project, so put
 them in a directory named with the `DATE`.
 
 Tag the revision of this project used to produce the `DATE` binaries.
+
+Package installation
+--------------------
+
+Extract a clang and one gcc-libs package into the same directory.  Passing
+`--strip-components=1` to tar is helpful with this.  e.g.:
+
+    mkdir clang-3.2-gcc-libs-4.6.3
+    cd clang-3.2-gcc-libs-4.6.3
+    tar --strip-components=1 -xf ../clang-3.2-x86-linux.tar.bz2
+    tar --strip-components=1 -xf ../gcc-libs-4.6.3-x86-linux.tar.bz2
 
 Compatibility note: library versions
 ------------------------------------
