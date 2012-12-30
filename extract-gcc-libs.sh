@@ -23,23 +23,28 @@ mkdir ${PREFIX_GCC_LIBS}
 # Copy the include directory, which has libstdc++ headers.
 cp -r ${PREFIX_GCC}/include ${PREFIX_GCC_LIBS}
 
-# Copy the lib directory.  It has many things in it, most notably the libstdc++
-# and libgcc libraries.
-cp -r ${PREFIX_GCC}/lib ${PREFIX_GCC_LIBS}
+# Copy the lib and lib64 directories.  They have many things in them, most
+# notably the libstdc++ and libgcc libraries.
+if [ -d ${PREFIX_GCC}/lib ]; then
+    cp -r ${PREFIX_GCC}/lib ${PREFIX_GCC_LIBS}
+fi
+if [ -d ${PREFIX_GCC}/lib64 ]; then
+    cp -r ${PREFIX_GCC}/lib64 ${PREFIX_GCC_LIBS}
+fi
 
 # Remove la files.  They have absolute paths in them that would need
 # relocating.
-rm ${PREFIX_GCC_LIBS}/lib/*.la
+rm ${PREFIX_GCC_LIBS}/lib*/*.la
 
 # Remove this Python script.  It uses an absolute path to find a Python script
 # in the share directory.  The path would need relocating.
-rm ${PREFIX_GCC_LIBS}/lib/libstdc++.so.*gdb.py
+rm ${PREFIX_GCC_LIBS}/lib*/libstdc++.so.*gdb.py
 
 # Remove fixed-up headers.  They come from the host system and are not
 # applicable to other distributions.
-rm -r ${PREFIX_GCC_LIBS}/lib/gcc/*/*/finclude
-rm -r ${PREFIX_GCC_LIBS}/lib/gcc/*/*/include-fixed
-rm -r ${PREFIX_GCC_LIBS}/lib/gcc/*/*/install-tools
+rm -r ${PREFIX_GCC_LIBS}/lib*/gcc/*/*/finclude
+rm -r ${PREFIX_GCC_LIBS}/lib*/gcc/*/*/include-fixed
+rm -r ${PREFIX_GCC_LIBS}/lib*/gcc/*/*/install-tools
 
 # Strip symbols from libraries.  This is guesswork.  GNU strip defaults to
 # --strip-all, which is OK for dynamic executables because it does not strip
