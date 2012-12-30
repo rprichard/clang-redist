@@ -1,0 +1,28 @@
+[rprichard] 2012-12-28.  The GetBitcodeLibraryPaths method appears to be used
+only by the llvm::Linker::addSystemPaths method, which is never called inside
+LLVM.  Perhaps it could be used by external LLVM projects.  It has the build
+system's install prefix embedded in it, and accessing it at install-time could
+fail (e.g. long timeout while NFS tries to mount a sub-directory of /home), so
+remove it.
+
+If this embedded path were more important to my use case, I could replace it
+with a large buffer and modify it at install-time using a special relocating
+program, but right now, that is unnecessary.
+
+--- lib/Support/Unix/Path.inc.orig	2012-12-28 19:44:56.865542050 -0800
++++ lib/Support/Unix/Path.inc	2012-12-28 19:45:15.354796974 -0800
+@@ -225,13 +225,13 @@
+ void
+ Path::GetBitcodeLibraryPaths(std::vector<sys::Path>& Paths) {
+   char * env_var = getenv("LLVM_LIB_SEARCH_PATH");
+   if (env_var != 0) {
+     getPathList(env_var,Paths);
+   }
+-#ifdef LLVM_LIBDIR
++#if 0 && defined(LLVM_LIBDIR)
+   {
+     Path tmpPath;
+     if (tmpPath.set(LLVM_LIBDIR))
+       if (tmpPath.canRead())
+         Paths.push_back(tmpPath);
+   }
