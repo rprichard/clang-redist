@@ -4,6 +4,7 @@ echo "===== master-build-script.sh"
 set -e -x
 date
 SCRIPT_SRC=$(cd $(dirname $0) && /bin/pwd)
+. $SCRIPT_SRC/include.sh
 
 package() {
     # xz tarballs do not work on OpenSUSE 11.2, so use bz2.
