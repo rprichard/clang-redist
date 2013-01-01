@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Clang-redist-linux : Linux package containing Clang and libstdc++ binaries" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Clang-redist-linux</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/rprichard/clang-redist-linux">View on GitHub</a>
+
+          <h1 id="project_title">Clang-redist-linux</h1>
+          <h2 id="project_tagline">Linux package containing Clang and libstdc++ binaries</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/rprichard/clang-redist-linux/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/rprichard/clang-redist-linux/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>clang-redist-linux</h1>
+
+<p>This project provides packages for x86 and x86-64 Linux distributions
+containing Clang, Clang libraries, and GCC libraries (e.g. libstdc++).  The
+packages provide a C++11 toolchain, and they provide the Clang libraries
+needed for the SourceWeb indexer.</p>
+
+<p>Binaries from the current 2012-12-30 release were built on x86 and x86-64
+Ubuntu 10.04.  They should work on most currently supported Linux distributions,
+which have libc and libstdc++ libraries no older than those in Ubuntu 10.04.
+This includes:</p>
+
+<ul>
+<li>Debian 6.0.</li>
+<li>Ubuntu 10.04 and up.</li>
+<li>Fedora 16 and up.</li>
+<li>OpenSUSE 12.1 and up.</li>
+<li>CentOS 6.x.</li>
+</ul><p>The packages will not work on CentOS 5.x, which uses libstdc++-4.2.</p>
+
+<h2>Download links:</h2>
+
+<table>
+<tr>
+<th>Package</th>
+<th>x86</th>
+<th>x86-64</th>
+</tr>
+<tr>
+<td>Clang 3.2</td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release_20121230/clang-3.2-x86-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release_20121230/clang-3.2-x86_64-linux.tar.bz2">Download</a></td>
+</tr>
+<tr>
+<td>gcc-libs 4.6.3</td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release_20121230/gcc-libs-4.6.3-x86-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release_20121230/gcc-libs-4.6.3-x86_64-linux.tar.bz2">Download</a></td>
+</tr>
+<tr>
+<td>gcc-libs 4.7.2</td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release_20121230/gcc-libs-4.7.2-x86-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release_20121230/gcc-libs-4.7.2-x86_64-linux.tar.bz2">Download</a></td>
+</tr>
+</table><h2>Usage</h2>
+
+<p>Extract the clang package and one gcc-libs package into the same directory.
+Passing <code>--strip-components=1</code> to tar is helpful for doing this.  e.g.:</p>
+
+<pre><code>mkdir clang-3.2-gcc-libs-4.6.3
+cd clang-3.2-gcc-libs-4.6.3
+tar --strip-components=1 -xf ../clang-3.2-x86-linux.tar.bz2
+tar --strip-components=1 -xf ../gcc-libs-4.6.3-x86-linux.tar.bz2
+</code></pre>
+
+<p>Note that at run-time, the binaries produced by this package may need a
+libstdc++ newer than the one on the host system.  Either use <code>LD_LIBRARY_PATH</code>
+to point at the packaged libstdc++, or compile with <code>-Wl,-R&lt;path&gt;</code> to embed an
+RPATH into the binary.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Clang-redist-linux maintained by <a href="https://github.com/rprichard">rprichard</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
