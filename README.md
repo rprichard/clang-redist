@@ -1,11 +1,10 @@
 clang-redist-linux
 ==================
 
-This project creates redistributable packages containing Clang, Clang
-libraries, and GCC libraries (e.g. libstdc++) for Linux x86 and x86-64.  The
-packages provide a C++11 toolchain that runs on most currently supported Linux
-distributions, and they provide the Clang libraries needed for the SourceWeb
-indexer.
+This project provides packages for x86 and x86-64 Linux distributions
+containing Clang, Clang libraries, and GCC libraries (e.g. libstdc++).  The
+packages provide a C++11 toolchain, and they provide the Clang libraries needed
+for the SourceWeb indexer.
 
 The scripts should be run on Ubuntu 10.04, x86 and x86-64, which uses
 libstdc++-4.4.3.  The resulting packages should run on any Linux distributions
@@ -16,9 +15,9 @@ distribution:
  - Ubuntu 10.04 and up.
  - Fedora 16 and up.
  - OpenSUSE 12.1 and up.
- - CentOS 6.0.
+ - CentOS 6.x.
 
-The packages will not work on CentOS 5.0, which uses libstdc++-4.2.
+The packages will not work on CentOS 5.x, which uses libstdc++-4.2.
 
 Note that at run-time, the binaries produced by this package may need a
 libstdc++ newer than the one on the host system.  Either use `LD_LIBRARY_PATH`
@@ -59,11 +58,11 @@ them in a directory named with the `DATE`.
 
 Tag the revision of this project used to produce the `DATE` binaries.
 
-Package installation
---------------------
+Usage
+-----
 
-Extract a clang and one gcc-libs package into the same directory.  Passing
-`--strip-components=1` to tar is helpful with this.  e.g.:
+Extract the clang package and one gcc-libs package into the same directory.
+Passing `--strip-components=1` to tar is helpful for doing this.  e.g.:
 
     mkdir clang-3.2-gcc-libs-4.6.3
     cd clang-3.2-gcc-libs-4.6.3
@@ -73,13 +72,13 @@ Extract a clang and one gcc-libs package into the same directory.  Passing
 Compatibility note: library versions
 ------------------------------------
 
-| Distribution           | libc version    | libstdc++ version
-| ---------------------- | --------------- | -----------------
-| CentOS 6.0 [1][2]      | 2.12            | 4.4.4
-| CentOS 6.3 [3][4]      | 2.12            | 4.4.6
-| Debian 6.0 [5]         | 2.11.3          | 4.4.5
-| OpenSUSE 11.2 [6]      | 2.10.1          | 4.4.1
-| Ubuntu 10.04 Lucid [7] | 2.11.1          | 4.4.3
+| Distribution                | libc version    | libstdc++ version
+| --------------------------- | --------------- | -----------------
+| CentOS 6.0 [[1]][1][[2]][2] | 2.12            | 4.4.4
+| CentOS 6.3 [[3]][3][[4]][4] | 2.12            | 4.4.6
+| Debian 6.0 [[5]][5]         | 2.11.3          | 4.4.5
+| OpenSUSE 11.2 [[6]][6]      | 2.10.1          | 4.4.1
+| Ubuntu 10.04 Lucid [[7]][7] | 2.11.1          | 4.4.3
 
 [1]: http://vault.centos.org/6.0/os/i386/Packages/
 [2]: http://vault.centos.org/6.0/os/x86_64/Packages/
