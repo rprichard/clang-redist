@@ -8,7 +8,7 @@ SCRIPT_SRC=$(cd $(dirname $0) && /bin/pwd)
 . $SCRIPT_SRC/include.sh
 
 VERSION_CLANG=3.2
-PREFIX=$INSTALL/clang-${VERSION_CLANG}-${ARCH}-linux
+PREFIX=$INSTALL/clang-${VERSION_CLANG}-${ARCH}-${PLATFORM}
 
 # Extract Clang.
 cd $SRC
@@ -26,6 +26,11 @@ mv compiler-rt-${VERSION_CLANG}.src compiler-rt
 cd $SRC/clang-${VERSION_CLANG}
 patch -p0 < $SCRIPT_SRC/clang-relocation.patch
 
+EXTRA_OPTIONS=
+if [ $PLATFORM = darwin ]; then
+    EXTRA_OPTIONS="--enable-libcpp $EXTRA_OPTIONS"
+fi
+
 # Configure and build LLVM.
 cd $BUILD
 rm -fr clang-${VERSION_CLANG}
@@ -36,16 +41,19 @@ $SRC/clang-${VERSION_CLANG}/configure \
     --disable-assertions \
     --enable-optimized \
     --enable-shared \
+    $EXTRA_OPTIONS \
     > ../clang-${VERSION_CLANG}-configure-log 2>&1
 make -j$NPROC > ../clang-${VERSION_CLANG}-build-log 2>&1
 make install > ../clang-${VERSION_CLANG}-install-log 2>&1
 
-# Clang is configured to build and link against a libLLVM shared object.  The
-# binaries find the shared object using an RPATH, which includes 
-# $ORIGIN/../lib, which is good, but it also includes an absolute path to the
-# build directory, which is at best useless.  Clean up the RPATH entries.
-$SCRIPT_SRC/update-rpath-entries.py \
-    --use-origin $PREFIX --discard $BUILD --reject / -- $PREFIX
+if [ $PLATFORM = linux ]; then
+    # Clang is configured to build and link against a libLLVM shared object.  The
+    # binaries find the shared object using an RPATH, which includes
+    # $ORIGIN/../lib, which is good, but it also includes an absolute path to the
+    # build directory, which is at best useless.  Clean up the RPATH entries.
+    $SCRIPT_SRC/update-rpath-entries.py \
+        --use-origin $PREFIX --discard $BUILD --reject / -- $PREFIX
+fi
 
 # Run Clang tests in the build directory.
 cd $BUILD/clang-${VERSION_CLANG}/test

@@ -1,5 +1,8 @@
-clang-redist-linux
-==================
+clang-redist
+============
+
+Linux
+-----
 
 This project provides packages for x86 and x86-64 Linux distributions
 containing Clang, Clang libraries, and GCC libraries (e.g. libstdc++).  The
@@ -24,23 +27,37 @@ libstdc++ newer than the one on the host system.  Either use `LD_LIBRARY_PATH`
 to point at the packaged libstdc++, or compile with `-Wl,-R<path>` to embed an
 RPATH into the binary.
 
-Prerequisites
--------------
+Linux prerequisites
+-------------------
 
     sudo apt-get install make g++ chrpath
+
+OS X
+----
+
+This project can also build a Clang package for x86-64 OS X.  It has been
+tested on OS X 10.8.  The package builds Clang against libc++, not libstdc++.
+
+OS X prerequisites
+------------------
+
+Install Xcode.  In Xcode preferences, go to the Downloads tab and install the
+Command Line Tools.
 
 Build process
 -------------
 
 All of the scripts in this directory should be run in the
-`/clang-redist-linux-DATE` top-level directory, so that if an end-user's
+`/clang-redist-PLATFORM-DATE` top-level directory, so that if an end-user's
 machine attempts to access an embedded build/install path, it is likely to fail
 instantly.
 
     DATE=$(date +%Y%m%d)
-    sudo mkdir /clang-redist-linux-$DATE
-    sudo chown $(id -un).$(id -gn) /clang-redist-linux-$DATE
-    cd /clang-redist-linux-$DATE
+    PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
+    sudo mkdir /clang-redist-$PLATFORM-$DATE
+    sudo chown $(id -un) /clang-redist-$PLATFORM-$DATE
+    sudo chgrp $(id -gn) /clang-redist-$PLATFORM-$DATE
+    cd /clang-redist-$PLATFORM-$DATE
 
 Run the `master-build-script.sh`, piping both stdout and stderr to `build.log`.
 
@@ -49,8 +66,8 @@ Run the `master-build-script.sh`, piping both stdout and stderr to `build.log`.
 Package the entire directory into a tarball.
 
     cd /
-    tar cfJ $HOME/clang-redist-linux-$DATE.tar.xz \
-        clang-redist-linux-$DATE
+    tar cfJ $HOME/clang-redist-$PLATFORM-$DATE.tar.xz \
+        clang-redist-$PLATFORM-$DATE
 
 Move the tarballs to permanent storage somewhere.  The tarballs in the install
 directory have no version string associating them with this project, so put

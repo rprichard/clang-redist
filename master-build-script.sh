@@ -16,10 +16,14 @@ package() {
 
 $SCRIPT_SRC/get-packages.sh
 $SCRIPT_SRC/build-clang.sh
-$SCRIPT_SRC/build-gcc46.sh
-$SCRIPT_SRC/build-gcc47.sh
-$SCRIPT_SRC/extract-gcc-libs.sh 4.6.3
-$SCRIPT_SRC/extract-gcc-libs.sh 4.7.2
-package clang-3.2-${ARCH}-linux
-package gcc-libs-4.6.3-${ARCH}-linux
-package gcc-libs-4.7.2-${ARCH}-linux
+if [ $PLATFORM = linux ]; then
+    $SCRIPT_SRC/build-gcc46.sh
+    $SCRIPT_SRC/build-gcc47.sh
+    $SCRIPT_SRC/extract-gcc-libs.sh 4.6.3
+    $SCRIPT_SRC/extract-gcc-libs.sh 4.7.2
+fi
+package clang-3.2-${ARCH}-${PLATFORM}
+if [ $PLATFORM = linux ]; then
+    package gcc-libs-4.6.3-${ARCH}-${PLATFORM}
+    package gcc-libs-4.7.2-${ARCH}-${PLATFORM}
+fi

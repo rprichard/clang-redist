@@ -15,16 +15,29 @@ SCRIPT_SRC=$(cd $(dirname $0) && /bin/pwd)
 
 GNU_URL=http://mirrors.kernel.org/gnu
 
+download_url() {
+    URL="$1"
+    if which wget >/dev/null; then
+        wget "$URL"
+    elif which curl >/dev/null; then
+        FILENAME=$(basename "$URL")
+        curl "$URL" -o "$FILENAME"
+    else
+        echo "error: no wget or curl in PATH" 2>&1
+        exit 1
+    fi
+}
+
 get() {
     URL=$1
-    FILENAME=$(basename $URL)
-    if [ ! -f $FILENAME ]; then
+    FILENAME=$(basename "$URL")
+    if [ ! -f "$FILENAME" ]; then
         if [ "$DIST_CACHE_URL" != "" ]; then
-            wget $DIST_CACHE_URL/$FILENAME
+            download_url "$DIST_CACHE_URL/$FILENAME"
         fi
     fi
-    if [ ! -f $FILENAME ]; then
-        wget $URL
+    if [ ! -f "$FILENAME" ]; then
+        download_url "$URL"
     fi
 }
 
@@ -34,19 +47,24 @@ get() {
 #
 # xz tarballs do not work on OpenSUSE 11.2, so use the bz2 packages for
 # gmp-5.0.5 and mpfr-3.1.0.
-get $GNU_URL/gcc/gcc-4.6.3/gcc-core-4.6.3.tar.bz2
-get $GNU_URL/gcc/gcc-4.6.3/gcc-g++-4.6.3.tar.bz2
-get $GNU_URL/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2
-get $GNU_URL/gmp/gmp-5.0.2.tar.bz2
-get $GNU_URL/gmp/gmp-5.0.5.tar.bz2
-get $GNU_URL/mpfr/mpfr-3.1.0.tar.bz2
-get http://www.multiprecision.org/mpc/download/mpc-0.9.tar.gz
+if [ $PLATFORM = linux ]; then
+    get $GNU_URL/gcc/gcc-4.6.3/gcc-core-4.6.3.tar.bz2
+    get $GNU_URL/gcc/gcc-4.6.3/gcc-g++-4.6.3.tar.bz2
+    get $GNU_URL/gcc/gcc-4.7.2/gcc-4.7.2.tar.bz2
+    get $GNU_URL/gmp/gmp-5.0.2.tar.bz2
+    get $GNU_URL/gmp/gmp-5.0.5.tar.bz2
+    get $GNU_URL/mpfr/mpfr-3.1.0.tar.bz2
+    get http://www.multiprecision.org/mpc/download/mpc-0.9.tar.gz
+fi
 get http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
 get http://llvm.org/releases/3.2/clang-3.2.src.tar.gz
 get http://llvm.org/releases/3.2/compiler-rt-3.2.src.tar.gz
 
 set -e
 echo "Checking SHA256 checksums of downloaded files..."
-sha256sum -c $SCRIPT_SRC/sha256sums.txt
+if [ $PLATFORM = linux ]; then
+    shasum -a256 -c $SCRIPT_SRC/sha256sums-gcc.txt
+fi
+shasum -a256 -c $SCRIPT_SRC/sha256sums-clang.txt
 
 date

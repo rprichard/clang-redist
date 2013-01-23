@@ -11,8 +11,8 @@ SCRIPT_SRC=$(cd $(dirname $0) && /bin/pwd)
 . $SCRIPT_SRC/include.sh
 
 VERSION_GCC=$1
-PREFIX_GCC=$INSTALL/gcc-${VERSION_GCC}-${ARCH}-linux
-PREFIX_GCC_LIBS=${INSTALL}/gcc-libs-${VERSION_GCC}-${ARCH}-linux
+PREFIX_GCC=$INSTALL/gcc-${VERSION_GCC}-${ARCH}-${PLATFORM}
+PREFIX_GCC_LIBS=${INSTALL}/gcc-libs-${VERSION_GCC}-${ARCH}-${PLATFORM}
 
 rm -fr ${PREFIX_GCC_LIBS}
 mkdir ${PREFIX_GCC_LIBS}

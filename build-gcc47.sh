@@ -12,7 +12,7 @@ SCRIPT_SRC=$(cd $(dirname $0) && /bin/pwd)
 . $SCRIPT_SRC/include.sh
 
 VERSION_GCC=4.7.2
-PREFIX=$INSTALL/gcc-${VERSION_GCC}-${ARCH}-linux
+PREFIX=$INSTALL/gcc-${VERSION_GCC}-${ARCH}-${PLATFORM}
 
 # Extract GCC and its dependencies.
 cd $SRC
