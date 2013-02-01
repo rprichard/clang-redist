@@ -8,7 +8,7 @@ SCRIPT_SRC=$(cd $(dirname $0) && /bin/pwd)
 . $SCRIPT_SRC/include.sh
 
 VERSION_CLANG=3.2
-PREFIX=$INSTALL/clang-${VERSION_CLANG}-${ARCH}-${PLATFORM}
+PREFIX=$INSTALL/clang-${VERSION_CLANG}-${DIST_VERSION}-${ARCH}-${PLATFORM}
 
 # Extract Clang.
 cd $SRC

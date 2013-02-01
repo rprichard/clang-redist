@@ -1,3 +1,5 @@
+DIST_VERSION=1
+
 UNAME_MACHINE=$(uname -m)
 UNAME_SYSTEM=$(uname -s)
 case $UNAME_MACHINE in

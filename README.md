@@ -30,6 +30,10 @@ RPATH into the binary.
 Linux prerequisites
 -------------------
 
+When setting up the Ubuntu 10.04 VMs, consider using a hard drive of 60GB.  The
+complete build is about 6-8GB.  Use at least 2GB of RAM for the 32-bit VM and
+3GB of RAM for the 64-bit VM.
+
     sudo apt-get install make g++ chrpath
 
 OS X
@@ -47,33 +51,20 @@ Command Line Tools.
 Build process
 -------------
 
-All of the scripts in this directory should be run in the
-`/clang-redist-PLATFORM-DATE` top-level directory, so that if an end-user's
-machine attempts to access an embedded build/install path, it is likely to fail
-instantly.
+Update the DIST_VERSION value in include.sh, if necessary.  Commit the change.
 
-    DATE=$(date +%Y%m%d)
-    PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
-    sudo mkdir /clang-redist-$PLATFORM-$DATE
-    sudo chown $(id -un) /clang-redist-$PLATFORM-$DATE
-    sudo chgrp $(id -gn) /clang-redist-$PLATFORM-$DATE
-    cd /clang-redist-$PLATFORM-$DATE
+Run the `master-build-script.sh` script.  Do not redirect output.  The script
+uses `sudo` to create its build directory, so it may need authentication early
+on, but afterwards, it will run without interaction.
 
-Run the `master-build-script.sh`, piping both stdout and stderr to `build.log`.
+    ./master-build-script.sh
 
-    <path-to-clang-redist>/master-build-script.sh >build.log 2>&1
-
-Package the entire directory into a tarball.
-
-    cd /
-    tar cfJ $HOME/clang-redist-$PLATFORM-$DATE.tar.xz \
-        clang-redist-$PLATFORM-$DATE
-
-Move the tarballs to permanent storage somewhere.  The tarballs in the install
-directory have no version string associating them with this project, so put
-them in a directory named with the `DATE`.
-
-Tag the revision of this project used to produce the `DATE` binaries.
+After the script completes successfully:
+1. Examine the build/clang-XXX-test-log file for any unexpected test output.  (I
+   think a failed test fails the build, but I'm not sure.)
+2. Tag the new build as release-${DIST_VERSION}.
+3. Save a copy of the clang-redist tarball and the tarballs in the install
+   directory.
 
 Usage
 -----
@@ -86,8 +77,8 @@ Passing `--strip-components=1` to tar is helpful for doing this.  e.g.:
     tar --strip-components=1 -xf ../clang-3.2-x86-linux.tar.bz2
     tar --strip-components=1 -xf ../gcc-libs-4.6.3-x86-linux.tar.bz2
 
-Compatibility note: library versions
-------------------------------------
+Compatibility note: Linux library versions
+------------------------------------------
 
 | Distribution                | libc version    | libstdc++ version
 | --------------------------- | --------------- | -----------------
