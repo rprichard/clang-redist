@@ -60,6 +60,7 @@ on, but afterwards, it will run without interaction.
     ./master-build-script.sh
 
 After the script completes successfully:
+
 1. Examine the build/clang-XXX-test-log file for any unexpected test output.  (I
    think a failed test fails the build, but I'm not sure.)
 2. Tag the new build as release-${DIST_VERSION}.
