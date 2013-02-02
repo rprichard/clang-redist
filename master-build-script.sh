@@ -43,8 +43,20 @@ main() {
         package gcc-libs-4.6.3-${DIST_VERSION}-${ARCH}-${PLATFORM}
         package gcc-libs-4.7.2-${DIST_VERSION}-${ARCH}-${PLATFORM}
     fi
+
+    # We want to archive the build directory.  There is at least one file[*]
+    # that has a mode of 0.  GNU tar fails when such a file is included in an
+    # archive, so recursively make all files user-readable.  BSD tar is able to
+    # include such files.
+    # [*] clang-redist-1-x86-linux/build/clang-3.2/tools/clang/test/Frontend/Output/dependency-generation-crash.c.tmp
+    chmod -R u+r $TOPDIR
+
     cd /
-    tar cfj $HOME/$(basename $TOPDIR).tar.bz2 $(basename $TOPDIR)
+    if [ $PLATFORM = linux ]; then
+        tar cfJ $HOME/$(basename $TOPDIR).tar.xz $(basename $TOPDIR)
+    else
+        tar cfj $HOME/$(basename $TOPDIR).tar.bz2 $(basename $TOPDIR)
+    fi
 }
 
 main >build.log 2>&1
