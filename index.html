@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="clang-redist-linux : Packages containing Clang and libstdc++ binaries for Linux" />
+    <meta name="description" content="clang-redist : Packages containing Clang and libstdc++ binaries for Linux and OS X" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>clang-redist-linux</title>
+    <title>clang-redist</title>
   </head>
 
   <body>
@@ -16,14 +16,14 @@
     <!-- HEADER -->
     <div id="header_wrap" class="outer">
         <header class="inner">
-          <a id="forkme_banner" href="https://github.com/rprichard/clang-redist-linux">View on GitHub</a>
+          <a id="forkme_banner" href="https://github.com/rprichard/clang-redist">View on GitHub</a>
 
-          <h1 id="project_title">clang-redist-linux</h1>
-          <h2 id="project_tagline">Packages containing Clang and libstdc++ binaries for Linux</h2>
+          <h1 id="project_title">clang-redist</h1>
+          <h2 id="project_tagline">Packages containing Clang and libstdc++ binaries for Linux and OS X</h2>
 
             <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/rprichard/clang-redist-linux/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/rprichard/clang-redist-linux/tarball/master">Download this project as a tar.gz file</a>
+              <a class="zip_download_link" href="https://github.com/rprichard/clang-redist/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/rprichard/clang-redist/tarball/master">Download this project as a tar.gz file</a>
             </section>
         </header>
     </div>
@@ -31,15 +31,18 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>This project provides packages for x86 and x86-64 Linux distributions
-containing Clang, Clang libraries, and GCC libraries (e.g. libstdc++).  The
-packages provide a C++11 toolchain, and they provide the Clang libraries
+        <p>This project provides packaged binaries containing:</p>
+
+<ul>
+<li>Clang and Clang libraries for OS X and Linux (x86 and x86-64 distributions)</li>
+<li>GCC libraries (e.g. libstdc++) for Linux only</li>
+</ul><p>The packages provide a C++11 toolchain, and they provide the Clang libraries
 needed for the SourceWeb indexer.</p>
 
-<p>Binaries from the current 2012-12-30 release were built on x86 and x86-64
-Ubuntu 10.04.  They should work on most currently supported Linux distributions,
-which have libc and libstdc++ libraries no older than those in Ubuntu 10.04.
-This includes:</p>
+<p>Binaries from the current version 1 release were built on x86 and x86-64
+Ubuntu 10.04 and OS X 10.8.  The Linux binaries should work on most currently
+supported Linux distributions, which have libc and libstdc++ libraries no older
+than those in Ubuntu 10.04. This includes:</p>
 
 <ul>
 <li>Debian 6.0.</li>
@@ -49,33 +52,48 @@ This includes:</p>
 <li>CentOS 6.x.</li>
 </ul><p>The packages will not work on CentOS 5.x, which uses libstdc++-4.2.</p>
 
+<p>On OS X, the Clang libraries were built for libc++, not libstdc++.  They
+should work on OS 10.8, might work on 10.7, but will not work with 10.6, which
+does not have libc++.</p>
+
 <h2>Download links</h2>
 
 <table>
 <tr>
 <th>Package</th>
-<th>x86</th>
-<th>x86-64</th>
+<th>x86 Linux</th>
+<th>x86-64 Linux</th>
+<th>x86-64 OS X</th>
 </tr>
 <tr>
 <td>Clang 3.2</td>
-<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release-20121230/clang-3.2-x86-linux.tar.bz2">Download</a></td>
-<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release-20121230/clang-3.2-x86_64-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/clang-3.2-1-x86-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/clang-3.2-1-x86_64-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/clang-3.2-1-x86_64-darwin.tar.bz2">Download</a></td>
 </tr>
 <tr>
 <td>gcc-libs 4.6.3</td>
-<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release-20121230/gcc-libs-4.6.3-x86-linux.tar.bz2">Download</a></td>
-<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist-linux/release-20121230/gcc-libs-4.6.3-x86_64-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/gcc-libs-4.6.3-1-x86-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/gcc-libs-4.6.3-1-x86_64-linux.tar.bz2">Download</a></td>
+<td>n/a</td>
 </tr>
-</table><h2>Usage</h2>
+<tr>
+<td>gcc-libs 4.7.2</td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/gcc-libs-4.7.2-1-x86-linux.tar.bz2">Download</a></td>
+<td><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/gcc-libs-4.7.2-1-x86_64-linux.tar.bz2">Download</a></td>
+<td>n/a</td>
+</tr>
+</table><p><a href="https://s3.amazonaws.com/rprichard-released-software/clang-redist/release-1/sha256sums-installables.txt">SHA256 checksums</a></p>
 
-<p>Extract a clang package and a gcc-libs package into the same directory.
+<h2>Linux usage note</h2>
+
+<p>On Linux, extract a clang package and a gcc-libs package into the same directory.
 Passing <code>--strip-components=1</code> to tar is helpful for doing this.  e.g.:</p>
 
-<pre><code>mkdir clang-3.2-gcc-libs-4.6.3
-cd clang-3.2-gcc-libs-4.6.3
-tar --strip-components=1 -xf ../clang-3.2-x86-linux.tar.bz2
-tar --strip-components=1 -xf ../gcc-libs-4.6.3-x86-linux.tar.bz2
+<pre><code>mkdir clang-3.2-gcc-libs-4.6.3-1
+cd clang-3.2-gcc-libs-4.6.3-1
+tar --strip-components=1 -xf ../clang-3.2-1-x86-linux.tar.bz2
+tar --strip-components=1 -xf ../gcc-libs-4.6.3-1-x86-linux.tar.bz2
 </code></pre>
 
 <p>Note that at run-time, the binaries produced by this package may need a
@@ -88,7 +106,7 @@ RPATH into the binary.</p>
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">clang-redist-linux maintained by <a href="https://github.com/rprichard">rprichard</a></p>
+        <p class="copyright">clang-redist maintained by <a href="https://github.com/rprichard">rprichard</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
